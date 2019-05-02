@@ -1,1 +1,0 @@
-2019-04-09 10:57:45	8h 34m 33s	maniac_majorana	OK	7ec1182e33e6dee70293fd4e56d08e8e	44224de3-c556-4195-a3f2-ac30b00f0acb	nextflow run /home2/s181706/gitHub/sra_pipeline/workflow/main.nf --input /project/BICF/BICF_Core/s181706/gitHub/sra_pipeline --designFile /project/BICF/BICF_Core/s181706/gitHub/sra_pipeline/test.design.tsv
