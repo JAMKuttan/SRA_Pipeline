@@ -6,3 +6,8 @@ The pipeline uses [Nextflow](https://www.nextflow.io), a bioinformatics workflow
 This pipeline was designed to use a SLURM setup, as used by the [BioHPC Cluster](https://biohpc.swmed.edu/), however should be adaptable to run on nearly any system using and supported by Nextflow.
 
 Eventually, we should be able to integrate this pipeline into the [Astrocyte Workflow System](https://astrocyte-test.biohpc.swmed.edu/static/docs/index.html) as part of both a stand-alone script, or as part of additional scripts.
+
+## Prerequisite Files
+This pipeline requires a very simple design, tab delimited file:
+Line 1 must be the following header: "#sample_id	sra_number"
+Each subsequent line should then contain, in order the sample ID (whatever you wish to call the sample), and the SRA number from NCBI.
