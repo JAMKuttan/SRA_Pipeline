@@ -9,5 +9,5 @@ Eventually, we should be able to integrate this pipeline into the [Astrocyte Wor
 
 ## Prerequisite Files
 This pipeline requires a very simple design, tab delimited file:
-Line 1 must be the following header: "#sample_id	sra_number"
+Line 1 must be the following header: "sample_id	sra_number"
 Each subsequent line should then contain, in order the sample ID (whatever you wish to call the sample), and the SRA number from NCBI.
