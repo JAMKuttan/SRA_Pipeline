@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 // Default parameter values to run tests
-params.input = "$baseDir/../Samples"
+params.input = "$baseDir"
 params.designFile = "$baseDir/../test.design.tsv"
 params.pairedEnd = false
 
@@ -34,8 +34,13 @@ process download_sra{
 
   script:
   """
+  echo ${sample_id};
   echo "/repository/user/main/public/root = \\\"$runDir/temp\\\"" > \$HOME/.ncbi/user-settings.mkfg
   fastq-dump --gzip --split-3 ${sra_number};
+  for i in `ls | grep ${sra_number}`;
+  do name=`echo \${i} | sed -e "s:${sra_number}:${sample_id}:g"`;
+  mv \${i} \${name};
+  done;
   """
 }
 

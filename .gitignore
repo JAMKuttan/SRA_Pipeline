@@ -1,0 +1,18 @@
+# exclude all nextflow files
+.nextflow*
+work/
+pipeline_trace.txt
+Logs
+*.swp
+
+#ignore nextflow workflows
+workflow/nextflow.config
+workflow/temp
+workflow/Samples
+workflow/QC
+
+#pytests
+workflow/tests/__pycache__/
+workflow/tests/.cache/v/cache/lastfailed
+*.py[cod] 
+*$py.class
