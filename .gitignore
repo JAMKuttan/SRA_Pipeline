@@ -12,6 +12,7 @@ workflow/Samples
 workflow/QC
 
 #pytests
-*__pycache__* 
+workflow/tests/__pycache__/
+workflow/tests/.cache/v/cache/lastfailed
 *.py[cod] 
 *$py.class
