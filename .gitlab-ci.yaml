@@ -1,0 +1,33 @@
+before_script:
+        - module add  python/3.6.1-2-anaconda
+        - pip install --user pytest-pythonpath==0.7.1 pytest-cov==2.5.1
+        - module load  nextflow/0.31.0
+
+stages:
+        - download
+        - fastqc
+        - multiqc
+
+download:
+        stage: download
+        script:
+        - nextflow run workflow/main.nf -resume
+        - pytest -m downloadse downloadpe
+        artifacts:
+                expire_in: 2 days
+
+fastqc:
+        stage: fastqc
+        script:
+        - nextflow run workflow/main.nf -resume
+        - pytest -m fastqcse fastqcpe
+        artifacts:
+                expire_in: 2 days
+
+multiqc:
+        stage: multiqc
+        script:
+        - nextflow run workflow/main.nf -resume
+        - pytest -m multiqchtml multiqcfiles
+        artifacts:
+                expire_in: 2 days
