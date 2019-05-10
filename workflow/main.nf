@@ -34,9 +34,9 @@ process download_sra{
 
   script:
   """
-  echo ${sample_id};
-  echo "/repository/user/main/public/root = \\\"$runDir/temp\\\"" > \$HOME/.ncbi/user-settings.mkfg
-  fastq-dump --gzip --split-3 ${sra_number};
+  wget `srapath ${sra_number}`;
+  fastq-dump --gzip --split-3 `readlink -e $sra_number`;
+  rm ${sra_number};
   for i in `ls | grep ${sra_number}`;
   do name=`echo \${i} | sed -e "s:${sra_number}:${sample_id}:g"`;
   mv \${i} \${name};
@@ -79,8 +79,8 @@ process rawMultiQC{
   file multiqclist from sraMultiQC.collect()
 
   script:
+//  perl $baseDir/scripts/downloadDesignOut.pl --designFile ${designFile} --samples ${runDir}/Samples --output ${runDir}/Samples/design.tsv;
   """
-  perl $baseDir/scripts/downloadDesignOut.pl --designFile ${designFile} --samples ${runDir}/Samples --output ${runDir}/Samples/design.tsv;
   multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${runDir}/QC/Raw;
   """
 }
