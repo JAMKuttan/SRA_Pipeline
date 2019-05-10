@@ -1,0 +1,89 @@
+#
+# metadata for the example astrocyte SRA Downloader workflow package
+#
+
+# -----------------------------------------------------------------------------
+# BASIC INFORMATION
+# -----------------------------------------------------------------------------
+#
+# A unique identifier for the workflow package, text/underscores only
+name: 'sra_pipeline_bicf'
+# Who wrote this?
+author: 'Jon Gesell'
+# A contact email address for questions
+email: 'biohpc-help@utsouthwestern.edu'
+# A more informative title for the workflow package
+title: 'BICF SRA Download Pipeline'
+# A summary of the workflow package in plain text
+description: |
+  This is a workflow package for the BioHPC/BICF SRA download workflow system.
+  It implements the SRA Download workflow.
+
+# -----------------------------------------------------------------------------
+# DOCUMENTATION
+# -----------------------------------------------------------------------------
+
+# A list of documentation file in .md format that should be viewable from the
+# web interface. These files are in the 'docs' subdirectory. The first file
+# listed will be used as a documentation index and is index.md by convention
+documentation_files:
+  - ['index.md', 'sra_pipeline']
+
+# -----------------------------------------------------------------------------
+# NEXTFLOW WORKFLOW CONFIGURATION
+# -----------------------------------------------------------------------------
+
+# Remember - The workflow file is always named 'workflow/main.nf'
+#            The workflow must publish all final output into $baseDir
+
+# A list of cluster environment modules that this workflow requires to run.
+# Specify versioned module names to ensure reproducability.
+workflow_modules:
+  - 'sra_toolkit/2.8.2-1'
+  - 'fastqc/0.11.5'
+  - 'multiqc/1.7'
+
+# A list of parameters used by the workflow, defining how to present them,
+# options etc in the web interface. For each parameter:
+#
+# REQUIRED INFORMATION
+#  id:         The name of the parameter in the NEXTFLOW workflow
+#  type:       The type of the parameter, one of:
+#                string    - A free-format string
+#                integer   - An integer
+#                real      - A real number
+#                file      - A single file from user data
+#                files     - One or more files from user data
+#                select    - A selection from a list of values
+#  required:    true/false, must the parameter be entered/chosen?
+#  description: A user friendly description of the meaning of the parameter
+#
+# OPTIONAL INFORMATION
+#  default:   A default value for the parameter (optional)
+#  min:       Minium value/characters/files for number/string/files types
+#  max:       Maxumum value/characters/files for number/string/files types
+#  regex:     A regular expression that describes valid entries / filenames
+#
+# SELECT TYPE
+#  choices:   A set of choices presented to the user for the parameter.
+#             Each choice is a pair of value and description, e.g.
+#
+#             choices:
+#               - [ 'myval', 'The first option']
+#               - [ 'myval', 'The second option']
+#
+# NOTE - All parameters are passed to NEXTFLOW as strings... but they
+#        are validated by astrocyte using the information provided above
+
+  - id: input
+    type: string
+    required: true
+    description: |
+      Directory to store the FASTQ files once downloaded from SRA.
+
+  - id: design
+    type: file
+    required: true
+    description: |
+      A design file listing the desired sample ID and an SRA number.
+    regex: "*.tsv"
