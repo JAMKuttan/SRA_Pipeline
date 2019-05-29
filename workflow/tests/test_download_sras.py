@@ -4,7 +4,7 @@ import os
 
 test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/'
 
-@pytest.mark.downloadse
+@pytest.mark.downloads
 def test_download_sefastq():
 	assert  os.path.exists(os.path.join(test_output_path, "Test5.fastq.gz"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test5.fastq.gz")) == 228317277
@@ -18,8 +18,6 @@ def test_download_sefastq():
 	assert  os.path.exists(os.path.join(test_output_path, "Test8.fastq.gz"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test8.fastq.gz")) == 113240035
 
-@pytest.mark.downloadpe
-def test_download_pefastq():
 	assert  os.path.exists(os.path.join(test_output_path, "Test1_1.fastq.gz"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test1_1.fastq.gz")) == 420568841 
 	assert  os.path.exists(os.path.join(test_output_path, "Test1_2.fastq.gz"))

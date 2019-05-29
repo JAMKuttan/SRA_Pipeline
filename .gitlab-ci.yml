@@ -12,7 +12,7 @@ download:
         stage: download
         script:
         - nextflow run workflow/main.nf -resume
-        - pytest -m downloadse downloadpe
+        - pytest -m downloads
         artifacts:
                 expire_in: 2 days
 
@@ -20,7 +20,7 @@ fastqc:
         stage: fastqc
         script:
         - nextflow run workflow/main.nf -resume
-        - pytest -m fastqcse fastqcpe
+        - pytest -m fastqcs
         artifacts:
                 expire_in: 2 days
 
@@ -28,6 +28,6 @@ multiqc:
         stage: multiqc
         script:
         - nextflow run workflow/main.nf -resume
-        - pytest -m multiqchtml multiqcfiles
+        - pytest -m multiqc
         artifacts:
                 expire_in: 2 days
