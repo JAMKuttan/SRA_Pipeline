@@ -27,7 +27,7 @@ description: |
 # web interface. These files are in the 'docs' subdirectory. The first file
 # listed will be used as a documentation index and is index.md by convention
 documentation_files:
-  - ['index.md', 'sra_pipeline']
+  - 'index.md'
 
 # -----------------------------------------------------------------------------
 # NEXTFLOW WORKFLOW CONFIGURATION
@@ -75,6 +75,8 @@ workflow_modules:
 # NOTE - All parameters are passed to NEXTFLOW as strings... but they
 #        are validated by astrocyte using the information provided above
 
+workflow_parameters:
+
   - id: input
     type: string
     required: true
@@ -87,3 +89,9 @@ workflow_modules:
     description: |
       A design file listing the desired sample ID and an SRA number.
     regex: "*.tsv"
+
+vizapp_r_module: "None"
+
+vizapp_cran_packages: []
+
+vizapp_bioc_packages: []
