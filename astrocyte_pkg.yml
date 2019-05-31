@@ -88,7 +88,7 @@ workflow_parameters:
     required: true
     description: |
       A design file listing the desired sample ID and an SRA number.
-    regex: "*.tsv"
+    regex: ".*tsv"
 
 vizapp_r_module: "None"
 
