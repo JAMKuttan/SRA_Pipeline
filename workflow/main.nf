@@ -71,7 +71,7 @@ sampleList = Channel
 //Run MultiQC on the data and create the updated design file to be pushed to the next process
 process rawMultiQC{
   queue '32GB'
-  publishDir "${qcDir}/QC/Raw", mode: 'copy'
+  publishDir "${runDir}/QC/Raw", mode: 'copy'
   module 'multiqc/1.7'
 
   input:
