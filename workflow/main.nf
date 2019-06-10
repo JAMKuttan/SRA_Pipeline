@@ -34,11 +34,13 @@ process download_sra{
 
   script:
   """
-  wget `srapath ${sra_number}`;
-  fastq-dump --gzip --split-3 `readlink -e $sra_number`;
-  rm ${sra_number};
+  path=`srapath ${sra_number}`;
+  sample=`basename \${path}`;
+  wget \${path};
+  fastq-dump --gzip --split-3 `readlink -e \${sample}`;
+  rm \${sample};
   for i in `ls | grep ${sra_number}`;
-  do name=`echo \${i} | sed -e "s:${sra_number}:${sample_id}:g"`;
+  do name=`echo \${i} | sed -e "s:\${sample}:${sample_id}:g"`;
   mv \${i} \${name};
   done;
   """
