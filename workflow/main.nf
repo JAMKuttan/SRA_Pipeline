@@ -1,11 +1,11 @@
 #!/usr/bin/env nextflow
 
 // Default parameter values to run tests
-params.input = "$baseDir"
+params.output = "$baseDir"
 params.designFile = "$baseDir/../test.design.tsv"
 params.pairedEnd = false
 
-runDir = params.input
+runDir = params.output
 designFile = params.designFile
 paired = params.pairedEnd
 
