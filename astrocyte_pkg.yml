@@ -77,12 +77,6 @@ workflow_modules:
 
 workflow_parameters:
 
-  - id: input
-    type: string
-    required: true
-    description: |
-      Directory to store the FASTQ files once downloaded from SRA.
-
   - id: design
     type: file
     required: true
