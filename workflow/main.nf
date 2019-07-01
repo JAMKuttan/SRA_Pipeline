@@ -4,7 +4,7 @@
 params.input = "$baseDir"
 params.designFile = "$baseDir/../test.design.tsv"
 params.pairedEnd = false
-params.output = "params.input/Samples"
+params.output = "$params.input/Samples"
 
 runDir = params.input
 designFile = params.designFile
