@@ -4,10 +4,12 @@
 params.input = "$baseDir"
 params.designFile = "$baseDir/../test.design.tsv"
 params.pairedEnd = false
+params.output = "params.input/Samples"
 
 runDir = params.input
 designFile = params.designFile
 paired = params.pairedEnd
+output = params.output
 
 //Define the SRAs to download from the design file
 sraList = Channel
@@ -18,18 +20,18 @@ sraList = Channel
 
 //Download the SRA files
 process downloadSRA {
-  tag "${sra_number}_download"
-  publishDir "${runDir}/Samples", mode: 'copy'
+  tag "${sraNumber}_download"
+  publishDir "${output}", mode: 'copy'
 
   input:
-    set sample_id, sra_number from sraList
+    set sampleID, sraNumber from sraList
 
   output:
     file "*.fastq.gz" into qccheck mode flatten
 
   script:
     """
-    bash ${baseDir}/scripts/downloadSRA.sh ${sra_number} ${sample_id};
+    bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
     """
 }
 
