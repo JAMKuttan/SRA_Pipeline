@@ -1,12 +1,13 @@
 #!/bin/bash
 
-path=`srapath ${sra_number}`;
+sraNum=$1;
+path=`srapath ${sraNum}`;
 sample=`basename ${path}`;
-samplePath=`readlink -e ${sample}`;
+sampleID=$2;
 wget ${path};
-fastq-dump --gzip --split-3 ${samplePath};
+fastq-dump --gzip --split-3 `readlink -e ${sample}`;
 rm ${sample};
-for i in `ls | grep ${sra_number}`;
-  do name=`echo ${i} | sed -e "s:${sample}:${sample_id}:g"`;
+for i in `ls | grep ${sraNum}`;
+  do name=`echo ${i} | sed -e "s:${sample}:${sampleID}:g"`;
   mv ${i} ${name};
 done;

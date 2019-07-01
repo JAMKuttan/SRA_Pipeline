@@ -29,7 +29,7 @@ process downloadSRA {
 
   script:
     """
-    bash ${baseDir}/scripts/downloadSRA.sh;
+    bash ${baseDir}/scripts/downloadSRA.sh ${sra_number} ${sample_id};
     """
 }
 
