@@ -17,9 +17,9 @@ sraList = Channel
   .map { row -> [row.sample_id, row.sra_number ] }
 
 //Download the SRA files
-process download_sra {
+process downloadSRA {
   tag "${sra_number}_download"
-    publishDir "${runDir}/Samples", mode: 'copy'
+  publishDir "${runDir}/Samples", mode: 'copy'
 
   input:
     set sample_id, sra_number from sraList
