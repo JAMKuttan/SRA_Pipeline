@@ -37,7 +37,7 @@ process downloadSRA {
 
 //Run FastQC on the SRA data
 process rawFastQC {
-  publishDir "${runDir}/QC/Raw", mode: 'copy'
+  publishDir "${output}/QC/Raw", mode: 'copy'
   tag "${fq}_fastqc"
 
   input:
@@ -53,11 +53,11 @@ process rawFastQC {
 }
 
 sampleList = Channel
-  .fromFilePairs( ["${runDir}/Samples/*_{1,2}.fastq.gz", "${runDir}/Samples/*_R{1,2}_001.fastq.gz"], size: -1 )
+  .fromFilePairs( ["${output}/*_{1,2}.fastq.gz", "${output}/*_R{1,2}_001.fastq.gz"], size: -1 )
 
 //Run MultiQC on the data and create the updated design file to be pushed to the next process
 process rawMultiQC{
-  publishDir "${runDir}/QC/Raw", mode: 'copy'
+  publishDir "${output}/QC/Raw", mode: 'copy'
 
   input:
     file multiqclist from sraMultiQC.collect()
