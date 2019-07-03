@@ -64,6 +64,6 @@ process rawMultiQC{
 
   script:
     """
-    multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${runDir}/QC/Raw;
+    multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
     """
 }
