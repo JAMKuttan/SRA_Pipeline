@@ -2,8 +2,8 @@ import pytest
 from io import StringIO
 import os
 
-test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../QC/Raw/'
-test_output_mc_path = os.path.dirname(os.path.abspath(__file__)) + '/../QC/Raw/SRADownload.MultiQC.Report_data'
+test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/QC/Raw/'
+test_output_mc_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/QC/Raw/SRADownload.MultiQC.Report_data'
 
 @pytest.mark.multiqc
 def test_html():
