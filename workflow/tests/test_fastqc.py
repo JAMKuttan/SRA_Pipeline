@@ -2,7 +2,7 @@ import pytest
 from io import StringIO
 import os
 
-test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../QC/Raw/'
+test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/QC/Raw/'
 
 @pytest.mark.fastqcs
 def test_fastq_se():
