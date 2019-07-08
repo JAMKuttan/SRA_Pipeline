@@ -7,7 +7,7 @@ test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/QC/
 @pytest.mark.fastqcs
 def test_fastq_se():
 	assert  os.path.exists(os.path.join(test_output_path, "Test5_fastqc.zip"))
-	assert  os.path.getsize(os.path.join(test_output_path, "Test5_fastqc.zip")) >= 359390
+	assert  os.path.getsize(os.path.join(test_output_path, "Test5_fastqc.zip")) >= 355000
 
 	assert  os.path.exists(os.path.join(test_output_path, "Test6_fastqc.zip"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test6_fastqc.zip")) >= 505420
