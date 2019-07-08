@@ -19,9 +19,9 @@ def test_fastq_se():
 	assert  os.path.getsize(os.path.join(test_output_path, "Test8_fastqc.zip")) >= 512520
 
 	assert  os.path.exists(os.path.join(test_output_path, "Test1_1_fastqc.zip"))
-	assert  os.path.getsize(os.path.join(test_output_path, "Test1_1_fastqc.zip")) >= 496520
+	assert  os.path.getsize(os.path.join(test_output_path, "Test1_1_fastqc.zip")) >= 450000
 	assert  os.path.exists(os.path.join(test_output_path, "Test1_2_fastqc.zip"))
-	assert  os.path.getsize(os.path.join(test_output_path, "Test1_2_fastqc.zip"))>= 466420
+	assert  os.path.getsize(os.path.join(test_output_path, "Test1_2_fastqc.zip"))>= 450000
 
 	assert  os.path.exists(os.path.join(test_output_path, "Test2_1_fastqc.zip"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test2_1_fastqc.zip")) >= 404490
