@@ -48,7 +48,7 @@ process rawFastQC {
 
   script:
     """
-    fastqc ${fq} -t \$SLURM_CPUS_ON_NODE -q -o `pwd -P`;
+    fastqc ${fq} -q -o `pwd -P`;
     """
 }
 
