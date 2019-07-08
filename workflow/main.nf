@@ -20,6 +20,7 @@ sraList = Channel
 
 //Download the SRA files
 process downloadSRA {
+  beforeScript 'module load singularity/3.0.2'
   tag "${sraNumber}_download"
   publishDir "${output}", mode: 'copy'
 
