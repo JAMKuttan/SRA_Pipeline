@@ -82,6 +82,15 @@ workflow_parameters:
       A design file listing the desired sample ID and an SRA number.
     regex: ".*tsv"
 
+  - id: astrocyte
+    type: select
+    choices:
+      - [ 'true', 'true' ]
+    required: true
+    default: 'true'
+    description: |
+      Ensure configuraton for astrocyte.
+
 vizapp_r_module: "None"
 
 vizapp_cran_packages: []

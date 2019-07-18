@@ -5,6 +5,7 @@ params.input = "$baseDir"
 params.designFile = "$baseDir/../test.design.tsv"
 params.pairedEnd = false
 params.output = "$params.input/Samples"
+params.astrocyte = false
 
 runDir = params.output
 designFile = params.designFile
@@ -30,9 +31,17 @@ process downloadSRA {
     file "*.fastq.gz" into qccheck mode flatten
 
   script:
-    """
-    bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
-    """
+    if (params.astrocyte == true) {
+      """
+      module load singularity/3.0.2;
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/sratoolkit.sif bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      """
+    } else {
+
+      """
+      bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      """
+    }
 }
 
 //Run FastQC on the SRA data
@@ -47,9 +56,16 @@ process rawFastQC {
     file ("*_fastqc.zip") into sraMultiQC
 
   script:
-    """
-    fastqc ${fq} -q -o `pwd -P`;
-    """
+    if (params.astrocyte == true) {
+      """
+      module load singularity/3.0.2;
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/fastqc.sif fastqc ${fq} -q -o `pwd -P`;
+      """
+    } else {
+      """
+      fastqc ${fq} -q -o `pwd -P`;
+      """
+    }
 }
 
 sampleList = Channel
@@ -63,7 +79,14 @@ process rawMultiQC{
     file multiqclist from sraMultiQC.collect()
 
   script:
-    """
-    multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
-    """
+    if (params.astrocyte == true) {
+      """
+      module load singularity/3.0.2;
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/multiqc.sif multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
+      """
+    } else {
+      """
+      multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
+      """
+    }
 }
