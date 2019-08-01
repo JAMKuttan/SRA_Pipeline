@@ -75,7 +75,7 @@ workflow_modules:
 
 workflow_parameters:
 
-  - id: design
+  - id: designFile
     type: file
     required: true
     description: |
