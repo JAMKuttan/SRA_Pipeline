@@ -2,7 +2,7 @@ import pytest
 from io import StringIO
 import os
 
-test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../Samples/'
+test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../output/Samples/'
 
 @pytest.mark.downloads
 def test_download_sefastq():
