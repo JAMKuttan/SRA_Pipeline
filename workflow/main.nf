@@ -12,10 +12,27 @@ designFile = params.designFile
 paired = params.pairedEnd
 output = params.output
 
+design = Channel.fromPath(designFile)
+
+//Check Design File
+process checkDesignFile {
+  publishDir "${output}/Design", mode: 'copy'
+  tag "Design"
+
+  input:
+    file design
+
+  output:
+    file "checkedDesignFile.tsv" into checkedDesign mode flatten
+
+  script:
+    """
+    bash ${baseDir}/scripts/checkDesignFile.sh -d ${design};
+    """
+}
+
 //Define the SRAs to download from the design file
-sraList = Channel
-  .fromPath(designFile)
-  .flatten()
+sraList = checkedDesign
   .splitCsv(sep: '\t', header: true)
   .map { row -> [row.sample_id, row.sra_number ] }
 
