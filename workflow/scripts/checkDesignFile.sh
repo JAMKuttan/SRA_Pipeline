@@ -44,11 +44,11 @@ do
   fi
 
   line_pre=$(echo ${line} | awk '{print $2}' | sed 's/[0-9]*//g' )
-  if [[ ${line_pre} = SRR || ${line_pre} = ERR || ${line_pre} = DRR || ${line_pre} = SRA ]]
+  if [[ ${line_pre} = SRA || ${line_pre} = ERA || ${line_pre} = DRA || ${line_pre} = SRR || ${line_pre} = ERR || ${line_pre} = DRR || ${line_pre} = SRX || ${line_pre} = ERX || ${line_pre} = DRX || ${line_pre} = SRS || ${line_pre} = ERS || ${line_pre} = DRS || ${line_pre} = SRP || ${line_pre} = ERP || ${line_pre} = DRP ]]
   then
     echo ${line} | tr -s ' ' '\t'>> checkedDesignFile.tsv
   else
-    echo "SRA Number must be SRA#, SRR#, ERR#, or DRR#"
+    echo "Please input valid SRA Number"
     echo ${line}
     exit 5
   fi
