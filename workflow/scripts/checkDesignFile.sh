@@ -16,24 +16,10 @@ done
 
 shift $((${OPTIND} -1))
 
-#Check for Spaces in Design File
-design_ori=$(cat ${ref} | tr -s ' ' '\t')
-design_no=$(sed 's/ \+//g' ${ref})
-if [[ ${design_ori} != ${design_no} ]]
-then
-  echo "Spaces found in Design File. Please remove all spaces from columns"
-  exit 5
-fi
-
 echo "sample_id	sra_number" > checkedDesignFile.tsv
-#Check for Correct Headers
-line1=$(head -n 1 ${ref})
-line1_check="sample_id	sra_number"
-if [[ ${line1} != ${line1_check} ]]
-then
-  echo "First Line of Design File must read: sample_id	sra_number"
-  exit 5
-fi
+sed -i '/^$/d' ${ref}
+sed -e 's/\r$//g' ${ref}
+sed -e 's///g' ${ref}
 
 #Check SRA Number Prefix
 while read -r line
@@ -44,7 +30,15 @@ do
   fi
 
   line_pre=$(echo ${line} | awk '{print $2}' | sed 's/[0-9]*//g' )
-  if [[ ${line_pre} = SRA || ${line_pre} = ERA || ${line_pre} = DRA || ${line_pre} = SRR || ${line_pre} = ERR || ${line_pre} = DRR || ${line_pre} = SRX || ${line_pre} = ERX || ${line_pre} = DRX || ${line_pre} = SRS || ${line_pre} = ERS || ${line_pre} = DRS || ${line_pre} = SRP || ${line_pre} = ERP || ${line_pre} = DRP ]]
+
+  if [[ ${line_pre} = SRP || ${line_pre} = ERP || ${line_pre} = DRP ]]
+  then
+    echo "SRP, ERP, DRP are project numbers and contain multiple files. Please list each SRA in these projects individually. This feature will be included in later versions."
+    echo ${line}
+    exit 5
+  fi
+
+  if [[ ${line_pre} = SRA || ${line_pre} = ERA || ${line_pre} = DRA || ${line_pre} = SRR || ${line_pre} = ERR || ${line_pre} = DRR || ${line_pre} = SRX || ${line_pre} = ERX || ${line_pre} = DRX || ${line_pre} = SRS || ${line_pre} = ERS || ${line_pre} = DRS ]]
   then
     echo ${line} | tr -s ' ' '\t'>> checkedDesignFile.tsv
   else
