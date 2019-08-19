@@ -27,7 +27,7 @@ process checkDesignFile {
 
   script:
     """
-    bash ${baseDir}/scripts/checkDesignFile.sh -d ${design};
+    perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
     """
 }
 
