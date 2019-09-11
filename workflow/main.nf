@@ -26,9 +26,16 @@ process checkDesignFile {
     file "checkedDesignFile.tsv" into checkedDesign mode flatten
 
   script:
-    """
-    perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
-    """
+    if (params.astrocyte == true) {
+      """
+      module load singularity/3.0.2;
+      singularity run 'docker://bicf/bicfbase' perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
+      """
+    } else {
+      """
+      perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
+      """
+    }
 }
 
 //Define the SRAs to download from the design file
