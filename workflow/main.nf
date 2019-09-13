@@ -51,7 +51,7 @@ process downloadSRA {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/sratoolkit.sif bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/bicf-sratoolkit-1.1.img bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
       """
     } else {
 
@@ -76,7 +76,7 @@ process rawFastQC {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/fastqc.sif fastqc ${fq} -q -o `pwd -P`;
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/bicf-fastqc-1.2.img fastqc ${fq} -q -o `pwd -P`;
       """
     } else {
       """
@@ -99,7 +99,7 @@ process rawMultiQC{
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/multiqc.sif multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/bicf-multiqc-1.2.img multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
       """
     } else {
       """
