@@ -27,6 +27,7 @@ process checkDesignFile {
 
   script:
     """
+    cpanm List::MoreUtils Switch
     perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
     """
 }
