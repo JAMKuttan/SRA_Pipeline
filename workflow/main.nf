@@ -83,7 +83,7 @@ process rawFastQC {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run 'docker://bicf/fastqc:1.2' fastqc ${fq} -q -o `pwd -P`;
+      singularity run 'docker://bicf/fastqc:1.3' fastqc ${fq} -q -o `pwd -P`;
       """
     } else {
       """
