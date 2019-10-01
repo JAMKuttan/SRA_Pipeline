@@ -26,12 +26,6 @@ process checkDesignFile {
     file "checkedDesignFile.tsv" into checkedDesign mode flatten
 
   script:
-<<<<<<< workflow/main.nf
-    """
-    cpanm List::MoreUtils Switch
-    perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
-    """
-=======
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
@@ -42,7 +36,6 @@ process checkDesignFile {
       perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
       """
     }
->>>>>>> workflow/main.nf
 }
 
 //Define the SRAs to download from the design file
