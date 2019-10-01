@@ -29,7 +29,7 @@ process checkDesignFile {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run 'docker://bicf/bicfbase' perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
+      singularity run 'docker://bicf/perlcheckdesign:1.0' perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
       """
     } else {
       """
@@ -58,7 +58,7 @@ process downloadSRA {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/sratoolkit.sif bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      singularity run 'docker://bicf/sratoolkit:1.2' bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
       """
     } else {
 
@@ -83,7 +83,7 @@ process rawFastQC {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/fastqc.sif fastqc ${fq} -q -o `pwd -P`;
+      singularity run 'docker://bicf/fastqc:1.3' fastqc ${fq} -q -o `pwd -P`;
       """
     } else {
       """
@@ -106,7 +106,7 @@ process rawMultiQC{
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/multiqc.sif multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
+      singularity run 'docker://bicf/multiqc:1.3' multiqc -f -n 'SRADownload.MultiQC.Report' ${multiqclist} -o ${output}/QC/Raw;
       """
     } else {
       """
