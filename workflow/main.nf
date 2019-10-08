@@ -11,8 +11,15 @@ runDir = params.output
 designFile = params.designFile
 paired = params.pairedEnd
 output = params.output
+scriptDir = params.scriptDir
 
-design = Channel.fromPath(designFile)
+designFile = Channel.fromPath(designFile)
+
+//Define channels for the scripts in the scripts directory
+checkDesignScript = Channel
+  .fromPath("$baseDir/scripts/checkDesignFile.pl")
+downloadSRAsScript = Channel
+  .fromPath("$baseDir/scripts/downloadSRA.sh")
 
 //Check Design File
 process checkDesignFile {
@@ -20,14 +27,15 @@ process checkDesignFile {
   tag "Design"
 
   input:
-    file design
+    file designFile
+    file checkDesign from checkDesignScript.first()
 
   output:
     file "checkedDesignFile.tsv" into checkedDesign mode flatten
 
   script:
     """
-    perl ${baseDir}/scripts/checkDesignFile.pl --d ${design};
+    perl checkDesignFile.pl --d ${designFile};
     """
 }
 
@@ -36,13 +44,14 @@ sraList = checkedDesign
   .splitCsv(sep: '\t', header: true)
   .map { row -> [row.sample_id, row.sra_number ] }
 
-//Download the SRA files
+//Download the SRA files, note that this bypasses the creation of the NCBI temp directory in their home directory by using wget
 process downloadSRA {
   tag "${sraNumber}_download"
   publishDir "${output}", mode: 'copy'
 
   input:
     set sampleID, sraNumber from sraList
+    file downloadSRA from downloadSRAsScript.first()
 
   output:
     file "*.fastq.gz" into qccheck mode flatten
@@ -51,12 +60,12 @@ process downloadSRA {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run /project/shared/bicf_workflow_ref/singularity_images/sratoolkit.sif bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      singularity run /project/shared/bicf_workflow_ref/singularity_images/sratoolkit.sif bash downloadSRA.sh ${sraNumber} ${sampleID};
       """
     } else {
 
       """
-      bash ${baseDir}/scripts/downloadSRA.sh ${sraNumber} ${sampleID};
+      bash downloadSRA.sh ${sraNumber} ${sampleID};
       """
     }
 }
