@@ -6,9 +6,6 @@ test_output_path = os.path.dirname(os.path.abspath(__file__)) + '/../output/Samp
 
 @pytest.mark.downloads
 def test_download_sefastq():
-	assert  os.path.exists(os.path.join(test_output_path, "Test5.fastq.gz"))
-	assert  os.path.getsize(os.path.join(test_output_path, "Test5.fastq.gz")) >= 228000000
-
 	assert  os.path.exists(os.path.join(test_output_path, "Test6.fastq.gz"))
 	assert  os.path.getsize(os.path.join(test_output_path, "Test6.fastq.gz")) >= 115000000
 
