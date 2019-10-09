@@ -37,11 +37,11 @@ process checkDesignFile {
     if (params.astrocyte == true) {
       """
       module load singularity/3.0.2;
-      singularity run 'docker://bicf/perlcheckdesign:1.0' perl checkDesignFile.pl --d ${design};
+      singularity run 'docker://bicf/perlcheckdesign:1.0' perl checkDesignFile.pl --d ${designFile};
       """
     } else {
       """
-      perl checkDesignFile.pl --d ${design};
+      perl checkDesignFile.pl --d ${designFile};
       """
     }
 }
